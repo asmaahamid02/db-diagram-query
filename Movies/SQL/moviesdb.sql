@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema moviesdb
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema moviesdb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `moviesdb` DEFAULT CHARACTER SET utf8 ;
+USE `moviesdb` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`persons`
+-- Table `moviesdb`.`persons`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`persons` (
+CREATE TABLE IF NOT EXISTS `moviesdb`.`persons` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `dob` DATE NOT NULL,
@@ -29,9 +29,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`movies`
+-- Table `moviesdb`.`movies`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`movies` (
+CREATE TABLE IF NOT EXISTS `moviesdb`.`movies` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `year` YEAR NOT NULL,
@@ -45,9 +45,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`actors`
+-- Table `moviesdb`.`actors`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`actors` (
+CREATE TABLE IF NOT EXISTS `moviesdb`.`actors` (
   `actor_id` INT NOT NULL,
   `movie_id` INT NOT NULL,
   INDEX `fk_actors_persons_idx` (`actor_id` ASC) VISIBLE,
@@ -55,21 +55,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`actors` (
   PRIMARY KEY (`actor_id`, `movie_id`),
   CONSTRAINT `fk_actors_persons`
     FOREIGN KEY (`actor_id`)
-    REFERENCES `mydb`.`persons` (`id`)
+    REFERENCES `moviesdb`.`persons` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_actors_movies1`
     FOREIGN KEY (`movie_id`)
-    REFERENCES `mydb`.`movies` (`id`)
+    REFERENCES `moviesdb`.`movies` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`directors`
+-- Table `moviesdb`.`directors`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`directors` (
+CREATE TABLE IF NOT EXISTS `moviesdb`.`directors` (
   `director_id` INT NOT NULL,
   `movie_id` INT NOT NULL,
   INDEX `fk_table1_persons1_idx` (`director_id` ASC) VISIBLE,
@@ -77,21 +77,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`directors` (
   PRIMARY KEY (`director_id`, `movie_id`),
   CONSTRAINT `fk_table1_persons1`
     FOREIGN KEY (`director_id`)
-    REFERENCES `mydb`.`persons` (`id`)
+    REFERENCES `moviesdb`.`persons` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_table1_movies1`
     FOREIGN KEY (`movie_id`)
-    REFERENCES `mydb`.`movies` (`id`)
+    REFERENCES `moviesdb`.`movies` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`oscars`
+-- Table `moviesdb`.`oscars`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`oscars` (
+CREATE TABLE IF NOT EXISTS `moviesdb`.`oscars` (
   `movie_id` INT NOT NULL,
   `person_id` INT NOT NULL,
   `type` VARCHAR(45) NOT NULL,
@@ -101,12 +101,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`oscars` (
   PRIMARY KEY (`movie_id`, `person_id`),
   CONSTRAINT `fk_table1_movies2`
     FOREIGN KEY (`movie_id`)
-    REFERENCES `mydb`.`movies` (`id`)
+    REFERENCES `moviesdb`.`movies` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_table1_persons2`
     FOREIGN KEY (`person_id`)
-    REFERENCES `mydb`.`persons` (`id`)
+    REFERENCES `moviesdb`.`persons` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
