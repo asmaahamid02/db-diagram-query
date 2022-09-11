@@ -1,9 +1,7 @@
 -- number of CS students enrolled in any course
 
-select count(distinct student.id) as students from student
-inner join enrolled on enrolled.student_id = student.id
-inner join course on course.crn = enrolled.course_id
-inner join majorsin on majorsin.student_id = student.id
-inner join department on department.id = majorsin.dept_id
-where department.name = 'CS'
--- group by student.id
+select count(distinct enrolled.student_id) as students from  enrolled, course, majorsin, department
+where course.crn = enrolled.course_id and 
+      majorsin.student_id = enrolled.student_id and 
+      department.id = majorsin.dept_id and
+      department.name = 'CS'
